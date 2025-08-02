@@ -15,7 +15,7 @@ from RouterStructuredOutput import RouterSchema, AGENT_DESCRIPTIONS
 
 load_dotenv()
 
-with open('system_prompts.json', 'r') as f:
+with open('system_prompts.json', 'r', encoding='utf-8') as f:
     SYS_PROMPTS:dict[str, str] = json.load(f)
 
 def chunk_text(text: str, chunk_chars: int = 2_000) -> Iterable[str]:
