@@ -7,21 +7,21 @@ from rich.panel import Panel
 
 async def main():
 
-    print('[magenta]CthulhuAssistant[/magenta]:', Panel('¿Cómo quieres que te llame?', expand=False, border_style='magenta'))
+    print('[bold magenta]CthulhuAssistant[/bold magenta]:', Panel('¿Cómo quieres que te llame?', expand=False, border_style='bold magenta'))
 
-    user_name = Prompt.ask("[cyan]Tú: [/cyan]")
+    user_name = Prompt.ask("[bold cyan]Tú: [/bold cyan]")
     print('\n')
-    print('[magenta]CthulhuAssistant[/magenta]:', Panel(f'¡Hola {user_name}! Soy tu asistente de Cthulhu Dark. ¿En qué te puedo ayudar?', expand=False, border_style='magenta'))
-    print(Panel('En cualquier momento puedes escribir "/exit" para terminar.', expand=False, border_style='magenta'))
+    print('[bold magenta]CthulhuAssistant[/bold magenta]:', Panel(f'¡Hola {user_name}! Soy tu asistente de Cthulhu Dark. ¿En qué te puedo ayudar?', expand=False, border_style='bold magenta'))
+    print(Panel('En cualquier momento puedes escribir "/exit" para terminar.', expand=False, border_style='bold magenta'))
 
     graph_builder = GraphBuilder()
     graph = graph_builder.get_graph()
     state = State([])
 
     while True:
-        user_prompt = Prompt.ask(f"[cyan]{user_name}: [/cyan]")
+        user_prompt = Prompt.ask(f"[bold cyan]{user_name}: [/bold cyan]")
         if user_prompt.lower().strip() == "/exit":
-            print("\n[magenta]CthulhuAssistant[/magenta]:", Panel("¡Hasta pronto! 👋", expand=False, border_style='magenta'))
+            print("\n[bold magenta]CthulhuAssistant[/bold magenta]:", Panel("¡Hasta pronto! 👋", expand=False, border_style='bold magenta'))
             break
 
         user_message = ModelRequest.user_text_prompt(user_prompt)
@@ -29,6 +29,6 @@ async def main():
         start_node = graph_builder.build_node(agent=agents["Router"])
         start_node_instance = start_node()
         result = await graph.run(start_node=start_node_instance, state=state)
-        print("\n[magenta]CthulhuAssistant[/magenta]:", Panel(result.output, expand=False, border_style='magenta'), flush=True)
+        print("\n[bold magenta]CthulhuAssistant[/bold magenta]:", Panel(result.output, expand=False, border_style='bold magenta'), flush=True)
 
 asyncio.run(main())
