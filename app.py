@@ -1,21 +1,27 @@
 from pydantic_ai.messages import ModelRequest
 from GraphBuilder import GraphBuilder, State, agents
 import asyncio
+from rich import print
 from rich.prompt import Prompt
+from rich.panel import Panel
 
 async def main():
 
+    print('[magenta]CthulhuAssistant[/magenta]:', Panel('¿Cómo quieres que te llame?', expand=False))
 
-    user_name = Prompt.ask("[magenta]CthulhuAssistant[/magenta]: ¿Cómo quieres que te llame?\n\n[cyan]Tú: [/cyan]")
-    print(f'CthulhuAssistant: ¡Hola {user_name}! Soy tu asistente de Cthulhu Dark. ¿En qué te puedo ayudar?\nEn cualquier momento puedes escribir "/exit" para terminar.')
+    user_name = Prompt.ask("[cyan]Tú: [/cyan]")
+    print('\n')
+    print('[magenta]CthulhuAssistant[/magenta]:', Panel(f'¡Hola {user_name}! Soy tu asistente de Cthulhu Dark. ¿En qué te puedo ayudar?', expand=False))
+    print(Panel('En cualquier momento puedes escribir "/exit" para terminar.', expand=False))
+
     graph_builder = GraphBuilder()
     graph = graph_builder.get_graph()
     state = State([])
 
     while True:
-        user_prompt = input(f"\n{user_name}: ")
+        user_prompt = Prompt.ask(f"[cyan]{user_name}: [/cyan]")
         if user_prompt.lower().strip() == "/exit":
-            print("CthulhuAssistant: ¡Hasta pronto! 👋")
+            print("\n[magenta]CthulhuAssistant[/magenta]:", Panel("¡Hasta pronto! 👋", expand=False))
             break
 
         user_message = ModelRequest.user_text_prompt(user_prompt)
@@ -23,6 +29,6 @@ async def main():
         start_node = graph_builder.build_node(agent=agents["Router"])
         start_node_instance = start_node()
         result = await graph.run(start_node=start_node_instance, state=state)
-        print(f"\nCthulhuAssistant: {result.output}", flush=True)
+        print("\n[magenta]CthulhuAssistant[/magenta]:", Panel(result.output, expand=False), flush=True)
 
 asyncio.run(main())
