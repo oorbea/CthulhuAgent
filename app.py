@@ -4,6 +4,7 @@ import asyncio
 from rich import print
 from rich.prompt import Prompt
 from rich.panel import Panel
+from rich.markdown import Markdown
 
 async def main():
 
@@ -29,6 +30,6 @@ async def main():
         start_node = graph_builder.build_node(agent=agents["Router"])
         start_node_instance = start_node()
         result = await graph.run(start_node=start_node_instance, state=state)
-        print("\n[bold magenta]CthulhuAssistant[/bold magenta]:", Panel(result.output, expand=False, border_style='bold magenta'), flush=True)
+        print("\n[bold magenta]CthulhuAssistant[/bold magenta]:", Panel(Markdown(result.output), expand=False, border_style='bold magenta'), flush=True)
 
 asyncio.run(main())

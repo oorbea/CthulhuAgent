@@ -11,7 +11,8 @@ agents = {
         "Router": AgentBuilder.build_router(),
         "StoryTeller": AgentBuilder.build_story_teller(),
         "StoryGuider": AgentBuilder.build_story_guider(),
-        "CharacterMaker": AgentBuilder.build_character_maker()
+        "CharacterMaker": AgentBuilder.build_character_maker(),
+        "RuleExplainer": AgentBuilder.build_rule_explainer()
     }
 
 @dataclass
