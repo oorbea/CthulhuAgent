@@ -158,6 +158,18 @@ class AgentBuilder:
         
         tools.append(Tool(_get_la_herencia_de_los_horrores, name='get_la_herencia_de_los_horrores', description='Retrieves a Cthulhu Dark story called "La Herencia de los Horrores" and returns it as a list of text chunks.\nThis story is about a group of players that are invited to a house in the countryside in order to read the testament of a strange doctor that passed away a few days ago, and it is used as an example of a Cthulhu Dark story.', takes_ctx=False))
 
+        def _get_el_eco_de_las_sombras_olvidadas() -> ToolReturn:
+            """
+            Retrieves a Cthulhu Dark story called "El Eco de las Sombras Olvidadas" and returns it as a list of text chunks.
+            This story is about a group of players that are invited to a house in order to attend a lesson about ancient magic, and it is used as an example of a Cthulhu Dark story.
+
+            Returns:
+                ToolReturn: An object containing the result of the operation, including the text chunks extracted from the PDF.
+            """
+            return cls.__mega_pdf_loader("https://mega.nz/file/nZFxzBwA#Kv-qSQEsyjHq8DzRK7TzP5ZQXyFPJ-3RlI6KHEuk5vI", 'ElEcoDeLasSombrasOlvidadas.pdf')
+        
+        tools.append(Tool(_get_el_eco_de_las_sombras_olvidadas, name='get_el_eco_de_las_sombras_olvidadas', description='Retrieves a Cthulhu Dark story called "El Eco de las Sombras Olvidadas" and returns it as a list of text chunks.\nThis story is about a group of players that are invited to a house in order to attend a lesson about ancient magic, and it is used as an example of a Cthulhu Dark story.', takes_ctx=False))
+
         return cls.__build_agent(name, system_prompt, 'gemini-2.5-flash', model_settings=settings, tools=tuple(tools))
     
     @classmethod
