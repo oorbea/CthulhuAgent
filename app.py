@@ -25,11 +25,24 @@ async def main():
             print("\n[bold magenta]CthulhuAssistant[/bold magenta]:", Panel("¡Hasta pronto! 👋", expand=False, border_style='bold magenta'))
             break
 
-        user_message = ModelRequest.user_text_prompt(user_prompt)
-        state.agent_messages.append(user_message)
-        start_node = graph_builder.build_node(agent=agents["Router"])
-        start_node_instance = start_node()
-        result = await graph.run(start_node=start_node_instance, state=state)
-        print("\n[bold magenta]CthulhuAssistant[/bold magenta]:", Panel(Markdown(result.output), expand=False, border_style='bold magenta'), flush=True)
+        if not user_prompt.strip():
+            continue
+
+        try:
+            user_message = ModelRequest.user_text_prompt(user_prompt)
+            state.agent_messages.append(user_message)
+            start_node = graph_builder.build_node(agent=agents["Router"])
+            start_node_instance = start_node()
+            result = await graph.run(start_node=start_node_instance, state=state)
+            print("\n[bold magenta]CthulhuAssistant[/bold magenta]:", Panel(Markdown(result.output), expand=False, border_style='bold magenta'), flush=True)
+        except KeyboardInterrupt:
+            print("\n[bold magenta]CthulhuAssistant[/bold magenta]:", Panel("¡Hasta pronto! 👋", expand=False, border_style='bold magenta'))
+            break
+        except ValueError as e:
+            print(f"[bold red]Value Error:[/bold red] {e}")
+        except asyncio.TimeoutError as e:
+            print(f"[bold red]Timeout Error:[/bold red] {e}")
+        except Exception as e:
+            print(f"[bold red]Error:[/bold red] {e}")
 
 asyncio.run(main())
