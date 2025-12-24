@@ -1,0 +1,15 @@
+{
+  "threadId": "thread-1",
+  "runId": "run-1",
+  "state": {},
+  "messages": [
+    {
+      "id": "msg-1",
+      "role": "user",
+      "content": "puedes incluir lo que te apetezca, realmente me da igual. Haz los inventos creativos que quieras"
+    }
+  ],
+  "tools": [],
+  "context": [],
+  "forwardedProps": {}
+}
