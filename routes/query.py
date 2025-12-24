@@ -6,7 +6,6 @@ from starlette.responses import Response
 from pydantic_ai.ag_ui import handle_ag_ui_request
 
 from GraphBuilder import State, agents
-from auth import verify_api_key
 
 limiter = FastAPILimiter()
 
@@ -24,10 +23,7 @@ def _get_last_user_text(payload: dict) -> str:
 
 @router.post("/ag-ui")
 @limiter.limit("5/minute")
-async def query_ag_ui(
-    request: Request,
-    _: None = Depends(verify_api_key),
-) -> Response:
+async def query_ag_ui(request: Request) -> Response:
     payload = await request.json()
 
     user_text = _get_last_user_text(payload)
