@@ -1,0 +1,58 @@
+# Ignore Python build and cache artifacts to keep the Docker context lean.
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments and environment files.
+.venv/
+venv/
+env/
+ENV/
+.env
+.envrc
+.Python
+.pdm-python
+
+# Dependency build and packaging outputs.
+build/
+dist/
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+parts/
+sdist/
+wheels/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Test, lint and coverage artifacts.
+*.log
+.coverage
+.coverage.*
+htmlcov/
+.nox/
+.tox/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+
+# IDE/editor cruft and OS temporary files.
+.vscode/
+.idea/
+*.iml
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.DS_Store
+Thumbs.db
+
+# Git metadata and local documents not needed inside Docker.
+.git
+.gitignore
+documents/
