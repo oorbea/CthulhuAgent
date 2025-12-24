@@ -2,7 +2,7 @@ import io
 from pathlib import Path
 from typing import Iterable
 import PyPDF2
-from pydantic_ai import Agent, Tool, DocumentUrl
+from pydantic_ai import Agent, Tool
 from pydantic_ai.messages import ToolReturn
 from pydantic_ai.models.gemini import GeminiModel, GeminiModelSettings
 from pydantic_ai.providers.google_gla import GoogleGLAProvider
