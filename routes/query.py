@@ -1,13 +1,10 @@
-from fastapi import APIRouter, Depends
-from fastapi_limiter import FastAPILimiter
+from fastapi import APIRouter
 from starlette.requests import Request
 from starlette.responses import Response
 
 from pydantic_ai.ag_ui import handle_ag_ui_request
 
 from GraphBuilder import State, agents
-
-limiter = FastAPILimiter()
 
 router = APIRouter(prefix="/api/query", tags=["query"])
 
@@ -22,7 +19,6 @@ def _get_last_user_text(payload: dict) -> str:
 
 
 @router.post("/ag-ui")
-@limiter.limit("5/minute")
 async def query_ag_ui(request: Request) -> Response:
     payload = await request.json()
 
