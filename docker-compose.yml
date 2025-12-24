@@ -1,0 +1,30 @@
+services:
+  cthulhu-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cthulhu-assistant-backend
+    ports:
+      - "8000:8000"
+    environment:
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      API_SECRET_KEY: ${API_SECRET_KEY}
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - ./documents:/app/documents
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health/').read()"
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+networks:
+  public-net:
+    external: true
