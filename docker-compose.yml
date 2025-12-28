@@ -4,8 +4,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: cthulhu-assistant-backend
-    ports:
-      - "8000:8000"
     environment:
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       PYTHONUNBUFFERED: "1"
