@@ -9,3 +9,4 @@ google-genai==2.33.0
 google-auth==2.62.0
 pypdf==6.21.2
 pymegatools==1.0.2
+slowapi==0.1.10

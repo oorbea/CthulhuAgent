@@ -5,6 +5,7 @@ from starlette.responses import Response
 from pydantic_ai.ui.ag_ui import AGUIAdapter
 
 from GraphBuilder import State, agents
+from rate_limit import QUERY_RATE_LIMIT, limiter
 
 router = APIRouter(prefix="/api/query", tags=["query"])
 
@@ -19,6 +20,7 @@ def _get_last_user_text(payload: dict) -> str:
 
 
 @router.post("/ag-ui")
+@limiter.limit(QUERY_RATE_LIMIT)
 async def query_ag_ui(request: Request) -> Response:
     payload = await request.json()
 
