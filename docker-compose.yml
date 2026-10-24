@@ -7,6 +7,8 @@ services:
     environment:
       GEMINI_API_KEY: ${GEMINI_API_KEY}
       PYTHONUNBUFFERED: "1"
+      RATE_LIMIT_QUERY: ${RATE_LIMIT_QUERY:-10/minute}
+      RATE_LIMIT_HEALTH: ${RATE_LIMIT_HEALTH:-60/minute}
     volumes:
       - ./documents:/app/documents
     restart: unless-stopped
