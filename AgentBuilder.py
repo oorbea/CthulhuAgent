@@ -1,11 +1,11 @@
 import io
 from pathlib import Path
 from typing import Iterable
-import PyPDF2
+from pypdf import PdfReader
 from pydantic_ai import Agent, Tool
 from pydantic_ai.messages import ToolReturn
-from pydantic_ai.models.gemini import GeminiModel, GeminiModelSettings
-from pydantic_ai.providers.google_gla import GoogleGLAProvider
+from pydantic_ai.models.google import GoogleModel, GoogleModelSettings
+from pydantic_ai.providers.google import GoogleProvider
 import os
 from dotenv import load_dotenv
 import json
@@ -44,8 +44,8 @@ class AgentBuilder:
         """
         if not os.getenv('GEMINI_API_KEY'):
             raise EnvironmentError("GEMINI_API_KEY environment variable is not set.")
-        _model = GeminiModel(model, provider=GoogleGLAProvider(api_key=os.getenv('GEMINI_API_KEY')))
-        settings = GeminiModelSettings(**model_settings) if model_settings else GeminiModelSettings()
+        _model = GoogleModel(model, provider=GoogleProvider(api_key=os.getenv('GEMINI_API_KEY')))
+        settings = GoogleModelSettings(**model_settings) if model_settings else GoogleModelSettings()
         agent = Agent(model=_model, name=name, instructions=instructions, output_type=output_type, model_settings=settings, tools=tools)
         return agent
     
@@ -65,7 +65,7 @@ class AgentBuilder:
             )
 
         raw = io.BytesIO(pdf_path.read_bytes())
-        reader = PyPDF2.PdfReader(raw)
+        reader = PdfReader(raw)
         pages = [page.extract_text() or "" for page in reader.pages]
         full = "\n\n".join(pages)
         chunks = list(chunk_text(full))
